@@ -2,10 +2,10 @@ const User = require("../models/user");
 
 async function registerUser(req, res, next) {
     try {
-        //CheckUser
+        
         const { firstName, lastName, email, password } = req.body;
-
-        const user = await User.findOne({ email });
+        //CheckUser
+        var user = await User.findOne({ email });
 
         if (user) {
             return res.send("มีผู้ใช้งานในระบบแล้ว");
@@ -25,7 +25,6 @@ async function registerUser(req, res, next) {
         res.send("สมัครสมาชิกสำเร็จแล้ว");
     } catch (error) {
         console.log(error);
-        res.send("Se");
     }
 };
 
