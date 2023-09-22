@@ -28,7 +28,6 @@ import { useNavigate } from "react-router-dom";
 
 import HeaderBar from "../layouts/headerbar";
 
-
 export default function ShorturlPage() {
   const [data, setData] = useState([]);
   const [selectedFullUrl, setSelectedFullUrl] = useState(null);
@@ -40,13 +39,7 @@ export default function ShorturlPage() {
   };
 
   useEffect(() => {
-    const token = getTokenFromLocalStorage();
-    if (token) {
-      navigate("/shorturl");
       loadData();
-    } else {
-      navigate("/");
-    }
   }, []);
 
   const loadData = async () => {
@@ -96,10 +89,7 @@ export default function ShorturlPage() {
       })
       .catch((error) => console.log(error));
   };
-  const handleLogout = () => {
-    localStorage.clear();
-    navigate("/login");
-  };
+
   return (
     <>
       <HeaderBar />
@@ -215,15 +205,6 @@ export default function ShorturlPage() {
             </Grid>
           </Box>
         </Box>
-        <Button
-          type="submit"
-          variant="contained"
-          color="error"
-          sx={{ mt: 3, mb: 2 }}
-          onClick={handleLogout}
-        >
-          Logout
-        </Button>
       </Container>
     </>
   );
