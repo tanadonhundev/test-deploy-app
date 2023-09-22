@@ -90,7 +90,6 @@ export default function ShorturlPage() {
       .catch((error) => console.log(error));
   };
   const handleRemove = async (id) => {
-    console.log(id)
     removeUrl(id)
       .then((res) => {
         toast.success(res.data);
