@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 // Routes
 //app.use("/", mainRoutes);
 app.use("/", shorturl);
-app.use("/auth", auth);
+app.use("/", auth);
 
 // connection
 const port = process.env.PORT || 9001;
