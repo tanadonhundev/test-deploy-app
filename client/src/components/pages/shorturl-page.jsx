@@ -32,14 +32,8 @@ export default function ShorturlPage() {
   const [data, setData] = useState([]);
   const [selectedFullUrl, setSelectedFullUrl] = useState(null);
 
-  const navigate = useNavigate();
-
-  const getTokenFromLocalStorage = () => {
-    return localStorage.getItem("token");
-  };
-
   useEffect(() => {
-      loadData();
+    loadData();
   }, []);
 
   const loadData = async () => {
@@ -82,13 +76,13 @@ export default function ShorturlPage() {
       .then((res) => {})
       .catch((error) => console.log(error));
   };
-  const handleRemove = async (id) => {
-    removeUrl(id)
-      .then((res) => {
-        console.log(res)
-        loadData();
-      })
-      .catch((error) => console.log(error));
+  const handleRemove = async (data) => {
+    try {
+      const removed = await removeUrl(data);
+      console.log(removed); // แสดงข้อมูลที่ถูกลบ
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (

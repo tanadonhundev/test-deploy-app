@@ -3,7 +3,7 @@ const shortId = require("shortid");
 
 async function createUrl(req, res, next) {
     try {
-        const { fullurl } = req.body;
+        const fullurl = req.body;
         const shortUrl = "https://shorturl.at/" + shortId.generate()
         //CheckURL
         var url = await Shorturl.findOne({ fullurl });
@@ -59,11 +59,11 @@ async function removeUrl(req, res, next) {
         // code
         const id = req.params.id
         const removed = await Shorturl.findOneAndDelete({ _id: id }).exec()
-        res.send("dddd")
+        res.send(removed)
     } catch (err) {
         // error
         console.log(err)
-        res.status(500).send('Server Error')
+        res.send('Server Error')
     }
 }
 
