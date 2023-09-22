@@ -12,23 +12,24 @@ async function registerUser(req, res, next) {
         }
         //Encrypt
         const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt)
 
-        user = new User({
+        const newUser = new User({
             firstName,
             lastName,
             email,
-            password,
+            password: hashedPassword,
         });
 
-        user.password = await bcrypt.hash(password, salt);
+
         //Save in Database
-        await user.save();
+        await newUser.save();
         res.send("สมัครสมาชิกสำเร็จแล้ว");
     } catch (error) {
         console.log(error);
         res.send("Server Error");
     }
-}
+};
 
 module.exports = {
     registerUser
