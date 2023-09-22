@@ -1,9 +1,10 @@
-// routes/shorturlRoutes.js
 const express = require('express');
 const router = express.Router();
-const shorturlController = require('../controllers/shorturl');
+const shorturl = require('../controllers/shorturl');
 
-// Define routes and their associated controller functions
-router.get("/", shorturlController.getAllShortUrls);
+router.post("/shorturl",shorturl.createUrl);
+router.get("/shorturl",shorturl.listUrl);
+router.post("/shorturl/clicks",shorturl.clicksUrl);
+router.delete("/shorturl",shorturl.removeUrl);
 
 module.exports = router;

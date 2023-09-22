@@ -1,7 +1,7 @@
 const Shorturl = require("../models/shorturl");
 const shortId = require("shortid");
 
-exports.createUrl = async (req, res) => {
+async function createUrl(req, res, next) {
     try {
         const { fullurl } = req.body;
         const shortUrl = "https://shorturl.at/" + shortId.generate()
@@ -23,10 +23,9 @@ exports.createUrl = async (req, res) => {
         console.log(error);
         res.send("Server Error");
     }
-};
+}
 
-
-exports.listUrl = async (req, res) => {
+async function listUrl(req, res, next) {
     try {
         const url = await Shorturl.find({}).exec();
         res.send(url);
@@ -36,7 +35,7 @@ exports.listUrl = async (req, res) => {
     }
 }
 
-exports.clicksUrl = async (req, res) => {
+async function clicksUrl(req, res, next) {
     try {
         const { data } = req.body;
         var url = await Shorturl.findOne({ _id: data })
@@ -53,8 +52,9 @@ exports.clicksUrl = async (req, res) => {
         console.error(error);
         res.send("Server Error");
     }
-};
-exports.removeUrl = async (req, res) => {
+}
+
+async function removeUrl(req, res, next) {
     try {
         // code
         const id = req.params.id
@@ -66,3 +66,10 @@ exports.removeUrl = async (req, res) => {
         res.status(500).send('Server Error')
     }
 }
+
+module.exports = {
+    createUrl,
+    listUrl,
+    clicksUrl,
+    removeUrl
+};
