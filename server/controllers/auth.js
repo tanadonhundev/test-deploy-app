@@ -1,10 +1,9 @@
 const User = require("../models/user");
 
 async function registerUser(req, res, next) {
-    try { 
+    try {
         const { firstName, lastName, email, password } = req.body;
         //CheckUser
-        console.log(data);
         var user = await User.findOne({ email });
 
         if (user) {
@@ -25,7 +24,7 @@ async function registerUser(req, res, next) {
         res.send("สมัครสมาชิกสำเร็จแล้ว");
     } catch (error) {
         console.log(error);
-        res.send("Se");
+        res.send(error);
     }
 };
 

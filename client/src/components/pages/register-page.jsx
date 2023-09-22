@@ -45,7 +45,7 @@ export default function RegisterPage() {
   const onSubmit = async (data) => {
     registerUser(data)
       .then((res) => {
-        console.log(data);
+        //console.log(data);
       })
       .catch((error) => console.log(error));
   };
