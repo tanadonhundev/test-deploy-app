@@ -1,10 +1,9 @@
 const User = require("../models/user");
 
-exports.registerUser = async (req, res) => {
-    try {
-        //CheckUser
+async function registerUser(req, res, next) {
+    try { 
         const { firstName, lastName, email, password } = req.body;
-
+        //CheckUser
         var user = await User.findOne({ email });
 
         if (user) {
@@ -12,21 +11,23 @@ exports.registerUser = async (req, res) => {
         }
         //Encrypt
         const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt)
 
-        user = new User({
+        const newUser = new User({
             firstName,
             lastName,
             email,
-            password
+            password: hashedPassword,
         });
-
-        user.password = await bcrypt.hash(password, salt);
         //Save in Database
-        await user.save();
+        await newUser.save();
         res.send("สมัครสมาชิกสำเร็จแล้ว");
     } catch (error) {
         console.log(error);
-        res.send("Server Error");
-        throw error;
+        res.send("Se");
     }
+};
+
+module.exports = {
+    registerUser
 };
