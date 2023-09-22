@@ -11,9 +11,7 @@ connectDB();
 
 // Middlewares
 const app = express();
-app.use(cors({
-    origin: 'http://localhost:5173' // Allow requests from http://localhost:5173
-}));
+app.use(cors());
 app.use(bodyParser.json());
 
 // Routes
@@ -22,5 +20,5 @@ app.use("/", shorturl);
 app.use("/auth", auth);
 
 // connection
-const port = process.env.PORT || 9001;
+const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening to port ${port}`));
