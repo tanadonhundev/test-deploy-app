@@ -34,34 +34,39 @@ async function registerUser(req, res, next) {
 
 async function loginUser(req, res, next) {
     try {
-        //Check User
-        const { email, password } = req.body
-        var user = await User.findOneAndUpdate({ email }, { new: true })
+        // Check User
+        const { email, password } = req.body;
+        const user = await User.findOne({ email });
 
-        if (user) {
-            const isMatch = await bcrypt.compare(password, user.password);
-            if (!isMatch) {
-                return res.send("รหัสผ่านไม่ถูกต้อง");
-            } else {
-                //Payload
-                var payload = {
-                    user: {
-                        uid: user._id,
-                        email: user.email,
-                    }
-                }
-                //Generate token
-                jwt.sign(payload, 'jwtsecret', { expiresIn: '1800' }, (error, token) => {
-                    if (error) throw error;
-                    res.json({ token, payload })
-                });
+        if (!user) {
+            return res.status(401).json({ error: "Invalid email" });
+        }
+
+        const isMatch = await bcrypt.compare(password, user.password);
+        if (!isMatch) {
+            return res.status(401).json({ error: "Invalid password" });
+        }
+
+        // Payload
+        const payload = {
+            user: {
+                uid: user._id,
+                email: user.email,
+            },
+        };
+
+        // Generate token
+        jwt.sign(payload, 'jwtsecret', { expiresIn: '1800' }, (error, token) => {
+            if (error) {
+                console.error(error);
+                return res.status(500).json({ error: "Token generation error" });
             }
-        } else return res.send("อีเมลไม่ถูกต้อง");
-
+            res.json({ token, payload });
+        });
     } catch (error) {
-        console.log(error);
-        res.send("Server Error");
-    };
+        console.error(error);
+        res.status(500).json({ error: "Server Error" });
+    }
 }
 
 module.exports = {

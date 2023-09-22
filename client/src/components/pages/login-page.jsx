@@ -44,20 +44,22 @@ export default function LoginPage() {
   });
 
   const onSubmit = async (data) => {
-    loginUser(data)
-      .then((res) => {
-        console.log(res);
-        if (res.data === "อีเมลไม่ถูกต้อง") {
-          toast.error(res.data);
-        } else if (res.data === "รหัสผ่านไม่ถูกต้อง") {
-          toast.error(res.data);
-        } else if (data) {
-          navigate("/shorturl");
-          toast.success("เข้าสู่ระบบสำเร็จ");
-          localStorage.setItem("token", res.data.token);
-        }
-      })
-      .catch((error) => console.log(error));
+    try {
+      const res = await loginUser(data);
+      if (res.data === "รหัสผ่านไม่ถูกต้อง") {
+        toast.error(res.data);
+      } else if (res.data && res.data.token) {
+        navigate("/shorturl");
+        toast.success("เข้าสู่ระบบสำเร็จ");
+        localStorage.setItem("token", res.data.token);
+      } else {
+        // Handle other error cases here
+        toast.error("An error occurred while logging in.");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("An error occurred while logging in.");
+    }
   };
 
   return (

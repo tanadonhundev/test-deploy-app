@@ -41,7 +41,7 @@ export default function ShorturlPage() {
 
   useEffect(() => {
     const token = getTokenFromLocalStorage();
-    if (!token) {
+    if (token) {
       navigate("/shorturl");
       loadData();
     } else {
