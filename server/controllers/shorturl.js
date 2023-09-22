@@ -3,7 +3,7 @@ const shortId = require("shortid");
 
 async function createUrl(req, res, next) {
     try {
-        const fullurl = req.body;
+        const {fullurl} = req.body;
         const shortUrl = "https://shorturl.at/" + shortId.generate()
         //CheckURL
         var url = await Shorturl.findOne({ fullurl });
