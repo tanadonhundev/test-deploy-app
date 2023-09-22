@@ -25,6 +25,7 @@ async function registerUser(req, res, next) {
         res.send("สมัครสมาชิกสำเร็จแล้ว");
     } catch (error) {
         console.log(error);
+        res.send("Se");
     }
 };
 

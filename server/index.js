@@ -11,7 +11,9 @@ connectDB();
 
 // Middlewares
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173' // Allow requests from http://localhost:5173
+}));
 app.use(bodyParser.json());
 
 // Routes
