@@ -32,11 +32,8 @@ export default function ShorturlPage() {
   const [data, setData] = useState([]);
   const [selectedFullUrl, setSelectedFullUrl] = useState(null);
 
-
-
-
   useEffect(() => {
-      loadData();
+    loadData();
   }, []);
 
   const loadData = async () => {
@@ -79,12 +76,10 @@ export default function ShorturlPage() {
       .then((res) => {})
       .catch((error) => console.log(error));
   };
-  const handleRemove = async (id) => {
-    removeUrl(id)
-      .then((res) => {
-        loadData();
-      })
-      .catch((error) => console.log(error));
+  const handleRemove = async (data) => {
+    await removeUrl(data);
+    await loadData();
+    toast.success("ลบ URL สำเร็จ");
   };
 
   return (

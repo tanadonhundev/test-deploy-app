@@ -18,7 +18,7 @@ async function createUrl(req, res, next) {
         });
         //Save in Database
         await newShortUrl.save();
-        res.send("Short URL สำเร็จแล้");
+        res.send("Short URL สำเร็จ");
     } catch (error) {
         console.log(error);
         res.send("Server Error");
