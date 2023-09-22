@@ -5,7 +5,7 @@ async function registerUser(req, res, next) {
         //CheckUser
         const { firstName, lastName, email, password } = req.body;
 
-        var user = await User.findOne({ email });
+        const user = await User.findOne({ email });
 
         if (user) {
             return res.send("มีผู้ใช้งานในระบบแล้ว");
@@ -20,8 +20,6 @@ async function registerUser(req, res, next) {
             email,
             password: hashedPassword,
         });
-
-
         //Save in Database
         await newUser.save();
         res.send("สมัครสมาชิกสำเร็จแล้ว");
