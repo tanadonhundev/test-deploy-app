@@ -5,7 +5,7 @@ const shorturlScheme = mongoose.Schema({
     shorturl: String,
     clicks: {
         type: Number,
-        default: 1
+        default: 0
     }
 });
 

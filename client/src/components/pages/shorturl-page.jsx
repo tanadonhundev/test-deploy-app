@@ -27,7 +27,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 import HeaderBar from "../layouts/headerbar";
-import axios from "axios";
+
 
 export default function ShorturlPage() {
   const [data, setData] = useState([]);
@@ -41,7 +41,7 @@ export default function ShorturlPage() {
 
   useEffect(() => {
     const token = getTokenFromLocalStorage();
-    if (token) {
+    if (!token) {
       navigate("/shorturl");
       loadData();
     } else {
@@ -90,8 +90,8 @@ export default function ShorturlPage() {
       .catch((error) => console.log(error));
   };
   const handleRemove = async (id) => {
-    await axios
-      .delete('http://localhost:5000/api/shorturl/' + id)
+    console.log(id)
+    removeUrl(id)
       .then((res) => {
         toast.success(res.data);
         loadData();

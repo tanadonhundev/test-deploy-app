@@ -58,8 +58,8 @@ async function removeUrl(req, res, next) {
     try {
         // code
         const id = req.params.id
-        const removed = await Shorturl.findOneAndDelete({ _id: id }).exec()
-        res.send("ลบ URL สำเร็จแล้ว");
+        await Shorturl.findOneAndDelete({ _id: id }).exec();
+        res.send("ลบ URL สำเร็จ");
     } catch (err) {
         // error
         console.log(err)

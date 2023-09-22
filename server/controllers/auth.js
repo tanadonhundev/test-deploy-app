@@ -2,17 +2,16 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-
-exports.registerUser = async (req, res) => {
+async function registerUser(req, res, next) {
     try {
         //CheckUser
-        const { firstName, lastName, email, password} = req.body;
+        const { firstName, lastName, email, password } = req.body;
 
         var user = await User.findOne({ email });
 
         if (user) {
             return res.send("มีผู้ใช้งานในระบบแล้");
-        }  
+        }
         //Encrypt
         const salt = await bcrypt.genSalt(10);
 
@@ -31,9 +30,9 @@ exports.registerUser = async (req, res) => {
         console.log(error);
         res.send("Server Error");
     }
-};
+}
 
-exports.loginUser = async (req, res) => {
+async function loginUser(req, res, next) {
     try {
         //Check User
         const { email, password } = req.body
@@ -63,17 +62,10 @@ exports.loginUser = async (req, res) => {
         console.log(error);
         res.send("Server Error");
     };
-};
-exports.currenUser = async (req, res) => {
-    try {
-        console.log('currenUser', req.user)
-        const user = await User.findOne({ email: req.user.email })
-            .select('-password')
-            .exec()
-        res.send(user)
+}
 
-    } catch (error) {
-        console.log(error);
-        res.send("Server Error");
-    }
+module.exports = {
+    registerUser,
+    loginUser
 };
+
