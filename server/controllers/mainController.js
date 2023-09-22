@@ -1,4 +1,6 @@
 // controllers/mainController.js
+const Shorturl = require("../models/shorturl");
+const shortId = require("shortid");
 
 async function getMainData(req, res, next) {
     try {
@@ -8,9 +10,8 @@ async function getMainData(req, res, next) {
         console.log(error);
         res.send('Server Error');
     }
-  }
-  
-  module.exports = {
+}
+
+module.exports = {
     getMainData,
-  };
-  
+};
