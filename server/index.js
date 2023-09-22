@@ -1,4 +1,5 @@
 const express = require("express");
+const shorturlRoutes = require('./routes/shorturl');
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -17,7 +18,6 @@ app.use(cors());
 app.use(bodyParser.json());
 
 //route
-readdirSync('./routes')
-    .map((r) => app.use("/", require("./routes/" + r)));
+app.use('/shorturls', shorturlRoutes);
 
 app.listen(port, () => console.log('Server Running on Port ' + port))

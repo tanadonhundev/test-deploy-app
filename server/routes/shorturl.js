@@ -1,17 +1,9 @@
-const express = require("express");
-const route = express.Router();
+// routes/shorturlRoutes.js
+const express = require('express');
+const router = express.Router();
+const shorturlController = require('../controllers/shorturl');
 
-const { createUrl, listUrl, clicksUrl, removeUrl } = require("../controllers/shorturl")
+// Define routes and their associated controller functions
+router.get("/", shorturlController.getAllShortUrls);
 
-//const { auth } = require("../middleware/auth")
-//http://localhost:5000/api/shorturl
-
-route.post("/shorturl", createUrl);
-
-route.get('/shorturl', listUrl)
-
-route.post("/shorturl/clicks", clicksUrl);
-
-route.delete('/shorturl/:id', removeUrl)
-
-module.exports = route;
+module.exports = router;
