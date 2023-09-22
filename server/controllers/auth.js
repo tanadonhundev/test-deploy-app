@@ -4,6 +4,7 @@ async function registerUser(req, res, next) {
     try { 
         const { firstName, lastName, email, password } = req.body;
         //CheckUser
+        console.log(data);
         var user = await User.findOne({ email });
 
         if (user) {
