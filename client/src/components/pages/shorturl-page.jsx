@@ -24,7 +24,6 @@ import {
   clicksUrl,
   removeUrl,
 } from "../../services/shorturl";
-import { useNavigate } from "react-router-dom";
 
 import HeaderBar from "../layouts/headerbar";
 
