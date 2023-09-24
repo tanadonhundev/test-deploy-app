@@ -11,6 +11,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -29,6 +30,7 @@ import HeaderBar from "../layouts/headerbar";
 
 export default function ShorturlPage() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [selectedFullUrl, setSelectedFullUrl] = useState(null);
 
   useEffect(() => {
@@ -37,7 +39,10 @@ export default function ShorturlPage() {
 
   const loadData = async () => {
     listUrl()
-      .then((res) => setData(res.data))
+      .then((res) => {
+        setData(res.data);
+        setLoading(false);
+      })
       .catch((err) => console.log(err));
   };
 
@@ -123,53 +128,63 @@ export default function ShorturlPage() {
         <TableContainer component={Paper}>
           <Table aria-label="simple table">
             <TableHead>
-              <TableRow>
-                <TableCell>Full URL</TableCell>
-                <TableCell>Short URL</TableCell>
-                <TableCell>Clicks</TableCell>
-              </TableRow>
+              {loading ? (
+                <TableRow>
+                  <TableCell>Loading...</TableCell>
+                </TableRow>
+              ) : (
+                <TableRow>
+                  <TableCell>Full URL</TableCell>
+                  <TableCell>Short URL</TableCell>
+                  <TableCell>Clicks</TableCell>
+                </TableRow>
+              )}
             </TableHead>
             <TableBody>
-              {data
-                ? data.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{item.fullurl}</TableCell>
-                      <TableCell>
-                        <a
-                          href={item.fullurl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          onClick={() => {
-                            handleShortUrlClick(item);
-                          }}
-                        >
-                          {item.shorturl}
-                        </a>
-                      </TableCell>
-                      <TableCell>{item.clicks}</TableCell>
-                      <TableCell>
-                        <Button
-                          variant="contained"
-                          color="success"
-                          onClick={() => {
-                            setSelectedFullUrl(item.fullurl);
-                          }}
-                        >
-                          QRCode
-                        </Button>
-                      </TableCell>
-                      <TableCell>
-                        <Button
-                          variant="contained"
-                          color="error"
-                          onClick={() => handleRemove(item._id)}
-                        >
-                          Delete
-                        </Button>
-                      </TableCell>
-                    </TableRow>
-                  ))
-                : null}
+              {data ? (
+                data.map((item, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{item.fullurl}</TableCell>
+                    <TableCell>
+                      <a
+                        href={item.fullurl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => {
+                          handleShortUrlClick(item);
+                        }}
+                      >
+                        {item.shorturl}
+                      </a>
+                    </TableCell>
+                    <TableCell>{item.clicks}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color="success"
+                        onClick={() => {
+                          setSelectedFullUrl(item.fullurl);
+                        }}
+                      >
+                        QRCode
+                      </Button>
+                    </TableCell>
+                    <TableCell>
+                      <Button
+                        variant="contained"
+                        color="error"
+                        onClick={() => handleRemove(item._id)}
+                      >
+                        Delete
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))
+              ) : (
+                <TableRow>
+                  <TableCell colSpan={3}>Loading...</TableCell>
+                </TableRow>
+              )}
             </TableBody>
           </Table>
         </TableContainer>
