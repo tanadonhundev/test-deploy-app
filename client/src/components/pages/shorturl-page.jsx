@@ -134,7 +134,7 @@ export default function ShorturlPage() {
                 </TableRow>
               ) : (
                 <TableRow>
-                  <TableCell>Full UR</TableCell>
+                  <TableCell>Full URL</TableCell>
                   <TableCell>Short URL</TableCell>
                   <TableCell>Clicks</TableCell>
                 </TableRow>
