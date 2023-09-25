@@ -25,6 +25,7 @@ import {
   clicksUrl,
   removeUrl,
 } from "../../services/shorturl";
+import { useNavigate } from "react-router-dom";
 
 import HeaderBar from "../layouts/headerbar";
 
@@ -33,8 +34,20 @@ export default function ShorturlPage() {
   const [loading, setLoading] = useState(true);
   const [selectedFullUrl, setSelectedFullUrl] = useState(null);
 
+  const navigate = useNavigate();
+
+  const getTokenFromLocalStorage = () => {
+    return localStorage.getItem("token");
+  };
+
   useEffect(() => {
-    loadData();
+    const token = getTokenFromLocalStorage();
+    if (token) {
+      navigate("/shorturl");
+      loadData();
+    } else {
+      navigate("/");
+    }
   }, []);
 
   const loadData = async () => {
@@ -84,6 +97,11 @@ export default function ShorturlPage() {
     await removeUrl(data);
     await loadData();
     toast.success("ลบ URL สำเร็จ");
+  };
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/login");
   };
 
   return (
@@ -217,6 +235,15 @@ export default function ShorturlPage() {
             </Grid>
           </Box>
         </Box>
+        <Button
+          type="submit"
+          variant="contained"
+          color="error"
+          sx={{ mt: 3, mb: 2 }}
+          onClick={handleLogout}
+        >
+          Logout
+        </Button>
       </Container>
     </>
   );

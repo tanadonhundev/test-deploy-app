@@ -51,27 +51,18 @@ export default function LoginPage() {
         console.log(res);
         if (res.data === "อีเมลไม่ถูกต้อง") {
           toast.error(res.data);
-        }
-        if (res.data === "รหัสผ่านไม่ถูกต้อง") {
+        } else if (res.data === "รหัสผ่านไม่ถูกต้อง") {
           toast.error(res.data);
-        } else {
-          roleUser(res.data.payload.user.role);
-          //navigate('/employee');
+        } else if (data) {
+          navigate("/shorturl");
           toast.success("เข้าสู่ระบบสำเร็จ");
+          localStorage.setItem("token", res.data.token);
         }
       })
       .catch((error) => console.log(error));
   };
 
-  const roleUser = (role) => {
-    if (role === "admin") {
-      navigate("/dashboard-admin");
-    } else if (role === "ownwer") {
-      navigate("/dashboard-owner");
-    } else if (role === "employee") {
-      navigate("/dashboard-employee");
-    }
-  };
+
 
   return (
     <>
