@@ -1,12 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import ShorturlPage from "../components/pages/shorturl-page";
+import HomePage from "../components/pages/home-page";
+import RegisterPage from "../components/pages/register-page";
+import LoginPage from "../components/pages/login-page";
+
+
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ShorturlPage />,
+    element: <HomePage />,
   },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+
 ]);
 
 export default router;
