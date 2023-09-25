@@ -5,19 +5,5 @@
             "src": "./index.js",
             "use": "@vercel/node"
         }
-    ],
-    "routes": [
-        {
-            "src": "/(.*)",
-            "dest": "/"
-        },
-        {
-            "src": "/shorturl",
-            "dest": "/shorturl.js"
-        },
-        {
-            "src": "/auth",
-            "dest": "/auth.js"
-        }
     ]
 }
