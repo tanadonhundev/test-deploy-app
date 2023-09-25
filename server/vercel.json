@@ -12,8 +12,12 @@
             "dest": "/"
         },
         {
-            "src": "/login",
-            "dest": "/"
+            "src": "/shorturl",
+            "dest": "/shorturl.js"
+        },
+        {
+            "src": "/auth",
+            "dest": "/auth.js"
         }
     ]
 }
