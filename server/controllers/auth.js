@@ -5,15 +5,13 @@ const jwt = require("jsonwebtoken");
 async function registerUser(req, res, next) {
     try {
         //CheckUser
-        const { firstName, lastName, phoneNumber, email, password, role } = req.body;
+        const { firstName, lastName, phoneNumber, email, password } = req.body;
 
         var user = await User.findOne({ email });
 
         if (user) {
             return res.send("มีผู้ใช้งานในระบบแล้ว");
         }
-
-        console.log(role);
 
         //Encrypt
         const salt = await bcrypt.genSalt(10);
@@ -24,7 +22,6 @@ async function registerUser(req, res, next) {
             phoneNumber,
             email,
             password,
-            role,
         });
 
         user.password = await bcrypt.hash(password, salt);

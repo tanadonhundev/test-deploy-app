@@ -42,7 +42,6 @@ export default function RegisterPage() {
       .string()
       .required("ป้อนรหัสผ่านด้วย")
       .min(6, "รหัสผ่านต้องอย่างน้อย 6 ตัวอักษรขึ้นไป"),
-    role: yup.string().required(),
   });
 
   const {
