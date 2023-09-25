@@ -1,7 +1,4 @@
 import React from "react";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import CameraIcon from "@mui/icons-material/PhotoCamera";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -62,8 +59,6 @@ export default function LoginPage() {
       .catch((error) => console.log(error));
   };
 
-
-
   return (
     <>
       <HeaderBar />
@@ -114,6 +109,7 @@ export default function LoginPage() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              loading={isSubmitting}
             >
               Log In
             </Button>
